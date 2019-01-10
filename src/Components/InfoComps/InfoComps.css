@@ -11,3 +11,9 @@
 :local(.InfoBox:hover){
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
+:local(.Title){
+	font-family: roboto;
+	color: #1111d9;
+    font-size: 37px;
+    text-align: center;
+}
