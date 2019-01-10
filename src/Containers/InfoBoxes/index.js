@@ -6,16 +6,18 @@ import CSS from './InfoBoxes.css';
 
 class InfoBoxes extends Component {
     render(){
+        let {shares, shareIdx} = this.props;
         return (<div className={CSS.InfoBoxes}>
-                    {this.props.shares.map((elem)=>{
-                        return <InfoBox name = {elem.name} />
-                    })}
+                    <div className={[CSS.Arrow,"fas fa-arrow-left"].join(' ')}></div>
+                    <InfoBox name = {shares[shareIdx].name} /> 
+                    <div className={[CSS.Arrow,"fas fa-arrow-right"].join(' ')}></div>
                 </div>)
     }
 }
 const mapStateToProps = state => {
     return {
-        shares: state.shares
+        shares: state.shares,
+        shareIdx: state.shareNum
     };
   };
   
