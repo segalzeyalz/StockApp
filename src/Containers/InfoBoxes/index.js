@@ -6,18 +6,15 @@ import CSS from './InfoBoxes.css';
 class InfoBoxes extends Component {
     render(){
         return (<div className={CSS.InfoBoxes}>
-                    {this.props.sharesName.map((elem)=>{
-                        return <h1>{elem}</h1>
+                    {this.props.shares.map((elem)=>{
+                        return <h1>{elem.name}</h1>
                     })}
-                    <h1 className={CSS.title}>
-                        Stockff App        
-                    </h1>
-        </div>)
+                </div>)
     }
 }
 const mapStateToProps = state => {
     return {
-        sharesName: state.sharesName
+        shares: state.shares
     };
   };
   
