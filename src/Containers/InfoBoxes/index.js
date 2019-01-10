@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as actionTypes from './../../Store/Actions';
+import InfoBox from './../../Components/InfoComps/InfoBox.jsx'
 import { connect } from 'react-redux';
 import CSS from './InfoBoxes.css';
 
@@ -7,7 +8,7 @@ class InfoBoxes extends Component {
     render(){
         return (<div className={CSS.InfoBoxes}>
                     {this.props.shares.map((elem)=>{
-                        return <h1>{elem.name}</h1>
+                        return <InfoBox name = {elem.name} />
                     })}
                 </div>)
     }
