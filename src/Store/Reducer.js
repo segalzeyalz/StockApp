@@ -1,7 +1,11 @@
 import * as actionTypes from './Actions';
 
 const initialState = {
-    shares: [{name:"S&P 500"}, {name:"Dow 30"}, {name:"Nasdaq"}, {name:"Amazon.com"}, {name:"Alphabet Inc"}],
+    shares: [{symbol:'INX',name:"S&P 500"},
+     {symbol:'DJI',name:"Dow 30"},
+     {symbol:'NDX',name:"Nasdaq"},
+     {symbol:'AMZN',name:"Amazon.com"},
+     {symbol:'GOOGL',name:"Alphabet Inc"}],
     shareNum:0
 };
 
