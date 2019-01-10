@@ -8,7 +8,7 @@ class InfoBoxes extends Component {
     render(){
         let {shares, shareIdx} = this.props;
         return (<div className={CSS.InfoBoxes}>
-                    <div className={[CSS.Arrow,"fas fa-arrow-left"].join(' ')}></div>
+                    <div onClick={()=>this.props.onNext()} className={[CSS.Arrow,"fas fa-arrow-left"].join(' ')}></div>
                     <InfoBox name = {shares[shareIdx].name} /> 
                     <div className={[CSS.Arrow,"fas fa-arrow-right"].join(' ')}></div>
                 </div>)
@@ -23,6 +23,8 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
+        onNext: () => dispatch({type:actionTypes.NEXT_STOCK}),
+        onPrev: () => dispatch({type:actionTypes.PREV_STOCK}),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(InfoBoxes);
