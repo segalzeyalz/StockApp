@@ -21,7 +21,6 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-        getSharesName: ()=> dispatch({type: actionTypes.Get_Shares_Name}),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(InfoBoxes);
