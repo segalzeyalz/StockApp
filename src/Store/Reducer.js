@@ -8,14 +8,16 @@ const initialState = {
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.NEXT_STOCK:
+            let nextIdx = state.shareNum<state.shares.length-1? state.shareNum+1: 0;
             return {
                 ...state,
-                shareNum:state.shareNum+1
+                shareNum:nextIdx
             }
         case actionTypes.PREV_STOCK:
+            let prevIdx = state.shareNum===0?state.shares.length-1: state.shareNum-1;            
             return {
                 ...state,
-                shareNum:state.shareNum-1
+                shareNum:prevIdx
             }
     }
     return state;

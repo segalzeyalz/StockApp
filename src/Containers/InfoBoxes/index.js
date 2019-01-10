@@ -10,7 +10,7 @@ class InfoBoxes extends Component {
         return (<div className={CSS.InfoBoxes}>
                     <div onClick={()=>this.props.onNext()} className={[CSS.Arrow,"fas fa-arrow-left"].join(' ')}></div>
                     <InfoBox name = {shares[shareIdx].name} /> 
-                    <div className={[CSS.Arrow,"fas fa-arrow-right"].join(' ')}></div>
+                    <div onClick={()=>this.props.onPrev()} className={[CSS.Arrow,"fas fa-arrow-right"].join(' ')}></div>
                 </div>)
     }
 }
