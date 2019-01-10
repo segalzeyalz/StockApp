@@ -1,6 +1,9 @@
 import React from 'react';
+import Title from './Title'
 import CSS from './InfoComps.css';
 const InfoBox = (props) => {
-  return <h1>{props.name}</h1>
+  return <div className={CSS.InfoBox}>
+            <Title name={props.name} />
+        </div>
 };
 export default InfoBox;
