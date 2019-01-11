@@ -17,3 +17,8 @@
     font-size: 37px;
     text-align: center;
 }
+:local(.ShareVal){
+    font-family: roboto;
+    text-align: center;
+    
+}

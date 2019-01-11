@@ -33,6 +33,7 @@ const Reducer = (state = initialState, action) => {
                 currencyRate:newCurrency
             }
         case actionTypes.UPDATE_TIMES:
+        //TODO: CHECK HOW TO MAKE IT SYNCHROUNSLY
         let lastValDate = action.newTime["Meta Data"] && action.newTime["Meta Data"]["3. Last Refreshed"]
         let newPrice = action.newTime["Time Series (1min)"] && action.newTime["Time Series (1min)"][lastValDate]['5. volume']
         let sharesUpdate = state.shares;
