@@ -34,11 +34,9 @@ const Reducer = (state = initialState, action) => {
             }
         case actionTypes.UPDATE_TIMES:
         let lastValDate = action.newTime["Meta Data"] && action.newTime["Meta Data"]["3. Last Refreshed"]
-        let newPrice = action.newTime["Time Series (1min)"][lastValDate]['5. volume']
-        console.log(newPrice)
+        let newPrice = action.newTime["Time Series (1min)"] && action.newTime["Time Series (1min)"][lastValDate]['5. volume']
         let sharesUpdate = state.shares;
         sharesUpdate[state.shareNum] ={...sharesUpdate[state.shareNum], price:newPrice}
-        console.log(newPrice)
             return {
                 ...state,
                 shares: sharesUpdate
