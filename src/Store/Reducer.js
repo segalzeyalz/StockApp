@@ -2,11 +2,11 @@ import * as actionTypes from './Actions';
 
 const initialState = {
     shares: [
-     {symbol:'INX',name:"S&P 500"},
-     {symbol:'DJI',name:"Dow 30"},
-     {symbol:'NDX',name:"Nasdaq"},
-     {symbol:'AMZN',name:"Amazon.com"},
-     {symbol:'GOOGL',name:"Alphabet Inc"}],
+     {symbol:'INX',name:"S&P 500", price:''},
+     {symbol:'DJI',name:"Dow 30", price:''},
+     {symbol:'NDX',name:"Nasdaq", price:''},
+     {symbol:'AMZN',name:"Amazon.com", price:''},
+     {symbol:'GOOGL',name:"Alphabet Inc", price:''}],
     shareNum:0,
     currencyRate:0,
     timesRate:{}
@@ -33,16 +33,14 @@ const Reducer = (state = initialState, action) => {
                 currencyRate:newCurrency
             }
         case actionTypes.UPDATE_TIMES:
-            let newTime = action.newTime
-            let newTIme = newTime["Time Series (5min)"];
-            console.log(newTime)
-            console.log(newTIme)
-
-            // for(var i=0; i<360; )
-
+        let lastValDate = action.newTime["Meta Data"] && action.newTime["Meta Data"]["3. Last Refreshed"]
+        let newPrice = action.newTime["Time Series (1min)"][lastValDate]['5. volume']
+        let sharesUpdate = state.shares;
+        sharesUpdate[state.shareNum] ={...sharesUpdate[state.shareNum], price:newPrice}
+        console.log(newPrice)
             return {
                 ...state,
-                timesRate:newTime
+                shares: sharesUpdate
             }
         case actionTypes.UPDATE_CURRENCY:
             return {
