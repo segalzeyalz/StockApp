@@ -3,7 +3,7 @@ import Title from './Title'
 import CSS from './InfoComps.css';
 const InfoBox = (props) => {
   return <div className={CSS.InfoBox}>
-            <Title name={props.name} />
+            <Title name={props.share.name} />
         </div>
 };
 export default InfoBox;
