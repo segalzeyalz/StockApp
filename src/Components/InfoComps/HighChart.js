@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Highcharts from 'react-highcharts'
 
 class HighChart extends Component {
+  componentWillUpdate(){
+    return false;
+  }
   render(props) {
     let config = {
       title:{align:"center",
