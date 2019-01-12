@@ -2,11 +2,11 @@ import * as actionTypes from './Actions';
 
 const initialState = {
     shares: [
-     {symbol:'INX',name:"S&P 500", price:''},
-     {symbol:'DJI',name:"Dow 30", price:''},
-     {symbol:'NDX',name:"Nasdaq", price:''},
-     {symbol:'AMZN',name:"Amazon.com", price:''},
-     {symbol:'GOOGL',name:"Alphabet Inc", price:''}],
+     {symbol:'INX',name:"S&P 500", price:3},
+     {symbol:'DJI',name:"Dow 30", price:5},
+     {symbol:'NDX',name:"Nasdaq", price:50},
+     {symbol:'AMZN',name:"Amazon.com", price:-10},
+     {symbol:'GOOGL',name:"Alphabet Inc", price:-80}],
     shareNum:0,
     currencyRate:0,
     timesRate:{}

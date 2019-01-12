@@ -9,7 +9,7 @@ const InfoBox = (props) => {
             <div className={CSS.flexContainer}>
               <div className={CSS.ShareInfoContainer}>
                 <Title name={props.share.name} />
-                <ShareVal val={7898464}/>
+                <ShareVal val={props.share.price}/>
                 <Precentage absVal={5} percent = {2}/>
               </div>
               <HighChart/>
