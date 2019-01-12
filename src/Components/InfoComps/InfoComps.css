@@ -27,5 +27,13 @@
     flex-wrap: nowrap;
     justify-content: space-around;
     align-content: stretch;
+    align-items: stretch;
+}
+:local(.ShareInfoContainer){
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-content: stretch;
     align-items: center;
 }
