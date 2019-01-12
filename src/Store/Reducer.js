@@ -40,7 +40,6 @@ const Reducer = (state = initialState, action) => {
                 fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=8QEUI4X`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     data= data
                     let newdata = data
                     shares[i].data = newdata;
