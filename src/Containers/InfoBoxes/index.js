@@ -6,14 +6,7 @@ import CSS from './InfoBoxes.css';
 
 class InfoBoxes extends Component {
     componentDidMount(){
-        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.props.shares[this.props.shareIdx].symbol}&interval=1min&outputsize=full&apikey=8QEUI4X`)
-        .then(response => response.json())
-        .then(data => this.props.updateTimes(data));
-    }
-    componentWillUpdate(){
-        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.props.shares[this.props.shareIdx].symbol}&interval=1min&outputsize=full&apikey=8QEUI4X`)
-        .then(response => response.json())
-        .then(data => this.props.updateTimes(data));
+        this.props.updateTimes()
     }
     render(){
         let {shares, shareIdx} = this.props;

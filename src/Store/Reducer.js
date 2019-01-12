@@ -34,13 +34,24 @@ const Reducer = (state = initialState, action) => {
             }
         case actionTypes.UPDATE_TIMES:
         //TODO: CHECK HOW TO MAKE IT SYNCHROUNSLY
-        let lastValDate = action.newTime["Meta Data"] && action.newTime["Meta Data"]["3. Last Refreshed"]
-        let newPrice = action.newTime["Time Series (1min)"] && action.newTime["Time Series (1min)"][lastValDate]['5. volume']
-        let sharesUpdate = state.shares;
-        sharesUpdate[state.shareNum] ={...sharesUpdate[state.shareNum], price:newPrice}
+            let {shares,shareNum} = state;
+            for(let i=0; i<shares.length; i++){
+                fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=8QEUI4X`)
+                .then(response => response.json())
+                .then(data => {
+                    let newdata = data
+                    shares[i].data = newdata;
+                    let price;
+                    //get last price of stock using the last refreshed attr
+                    let lastRef = newdata["Meta Data"]["3. Last Refreshed"];
+                    price = newdata["Time Series (1min)"][lastRef]["volume"];
+                    shares[i].price=price;
+                });
+            }
+            console.log(shares)
             return {
                 ...state,
-                shares: sharesUpdate
+                shares: shares
             }
         case actionTypes.UPDATE_CURRENCY:
             return {
