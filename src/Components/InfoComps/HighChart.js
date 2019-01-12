@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Highcharts from 'react-highcharts'
-import Highlight from 'react-highlight';
 
 class HighChart extends Component {
-  render() {
+  render(props) {
     let config = {
-        xAxis: {
+      title:{align:"center",
+        floating:false,
+        style:{ "color": "#333333", "fontSize": "18px" },
+        text:this.props.title},
+        xAxis: { title:{text:"Time"},
           categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         series: [{
