@@ -4,8 +4,14 @@ import ShareVal from './ShareVal.jsx';
 import CSS from './InfoComps.css';
 const InfoBox = (props) => {
   return <div className={CSS.InfoBox}>
-            <Title name={props.share.name} />
-            <ShareVal val={props.share.price}/>
+            <div className={CSS.flexContainer}>
+              <div>
+                <Title name={props.share.name} />
+                <ShareVal val={7898464}/>
+              </div>
+              <ShareVal val={7898464}/>
+              
+            </div>
         </div>
 };
 export default InfoBox;

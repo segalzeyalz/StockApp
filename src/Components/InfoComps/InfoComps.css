@@ -19,6 +19,13 @@
 }
 :local(.ShareVal){
     font-family: roboto;
-    text-align: center;
-    
+    text-align: center;    
+}
+:local(.flexContainer){
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-content: stretch;
+    align-items: center;
 }

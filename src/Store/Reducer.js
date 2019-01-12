@@ -36,17 +36,22 @@ const Reducer = (state = initialState, action) => {
         //TODO: CHECK HOW TO MAKE IT SYNCHROUNSLY
             let {shares,shareNum} = state;
             for(let i=0; i<shares.length; i++){
+                var data;
                 fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=8QEUI4X`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
+                    data= data
                     let newdata = data
                     shares[i].data = newdata;
-                    let price;
                     //get last price of stock using the last refreshed attr
-                    let lastRef = newdata["Meta Data"]["3. Last Refreshed"];
-                    price = newdata["Time Series (1min)"][lastRef]["volume"];
-                    shares[i].price=price;
-                });
+                    return [newdata["Meta Data"],newdata['Time Series (1min)']]
+                })
+                .then(newdata=> {
+                    console.log(newdata)
+                })
+                    // price = newdata["Time Series (1min)"][lastRef]["volume"];
+                    // shares[i].price=price;
             }
             console.log(shares)
             return {
