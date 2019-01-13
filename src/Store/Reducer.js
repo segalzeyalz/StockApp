@@ -37,18 +37,18 @@ const Reducer = (state = initialState, action) => {
         //TODO: CHECK HOW TO MAKE IT SYNCHROUNSLY
             let {shares,shareNum} = state;
             for(let i=0; i<shares.length; i++){
-                fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
-                .then(response => response.json())
-                .then(data => {
-                    let newdata = data
-                    shares[i].data = newdata;
-                    //get last price of stock using the last refreshed attr
-                    return newdata["Meta Data"]
-                })
-                .then(data=> {
-                    shares[i]["Last Refreshed"] = data["3. Last Refreshed"]
-                    shares[i].loading = false;
-                }).catch(err=> shares[i].loading=true)
+                // fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
+                // .then(response => response.json())
+                // .then(data => {
+                //     let newdata = data
+                //     shares[i].data = newdata;
+                //     //get last price of stock using the last refreshed attr
+                //     return newdata["Meta Data"]
+                // })
+                // .then(data=> {
+                //     shares[i]["Last Refreshed"] = data["3. Last Refreshed"]
+                //     shares[i].loading = false;
+                // }).catch(err=> shares[i].loading=true)
 
             }
             return {
