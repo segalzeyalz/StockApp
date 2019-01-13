@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import * as actionTypes from './../../Store/Actions';
-import InfoBox from './../../Components/InfoComps/InfoBox.jsx';
+import InfoBox from './../../Components/InfoComps/InfoBox';
 import { connect } from 'react-redux';
 import CSS from './InfoBoxes.css';
 
 class InfoBoxes extends Component {
+    componentWillMount(){
+        this.props.updateTimes()
+    }
     componentDidMount(){
         this.props.updateTimes()
     }
@@ -28,7 +31,7 @@ const mapStateToProps = state => {
     return {
         onNext: () => dispatch({type:actionTypes.NEXT_STOCK}),
         onPrev: () => dispatch({type:actionTypes.PREV_STOCK}),
-        updateTimes: (newTime) => dispatch({type:actionTypes.UPDATE_TIMES,newTime:newTime})
+        updateTimes: () => dispatch({type:actionTypes.UPDATE_TIMES})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(InfoBoxes);

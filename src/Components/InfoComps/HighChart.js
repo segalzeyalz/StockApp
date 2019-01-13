@@ -3,6 +3,7 @@ import Spinner from '../Spinner';
 import Highcharts from 'react-highcharts'
 
 class HighChart extends Component {
+
   render(props) {
     let arr = [];
     for(let j=0; j<360; j++){
@@ -13,12 +14,12 @@ class HighChart extends Component {
       title:{align:"center",
         floating:false,
         style:{ "color": "#333333", "fontSize": "18px" },
-        text:this.props.title},
+        text:this.props.share.symbol},
         xAxis: { title:{text:"Time"},
-          categories: this.props.times
+          categories: this.props.share.times
         },
         series: [{
-          data: this.props.data
+          data: this.props.share.data
         }]
       };
       if(showSpinner){

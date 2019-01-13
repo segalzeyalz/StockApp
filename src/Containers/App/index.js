@@ -6,8 +6,11 @@ import { connect } from 'react-redux';
 import CSS from './App.css';
 
 class App extends Component {
-  componentWillMount(){
+  componentDidMount(){
     this.props.updateTimes()
+}
+componentDidUpdate(){
+  this.props.updateTimes()
 }
   render() {
     return (
@@ -20,13 +23,12 @@ class App extends Component {
 }
 const mapStateToProps = state => {
   return {
-      shares: state.shares,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-      updateTimes: (newTime) => dispatch({type:actionTypes.UPDATE_TIMES,newTime:newTime})
+      updateTimes: () => dispatch({type:actionTypes.UPDATE_TIMES})
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
