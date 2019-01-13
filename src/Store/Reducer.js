@@ -36,23 +36,22 @@ const Reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_TIMES:
         //TODO: CHECK HOW TO MAKE IT SYNCHROUNSLY
             let {shares,shareNum} = state;
-            for(let i=0; i<1; i++){
+            for(let i=0; i<shares.length; i++){
                 fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
                 .then(response => response.json())
                 .then(data => {
                     shares[i].data = data;
                     //get last price of stock using the last refreshed attr
-                    shares[i]["Last Refreshed"] = data["Meta Data"]["3. Last Refreshed"]
-                    console.log(data["Meta Data"]["3. Last Refreshed"])
-                    console.log(data["Time Series (1min)"])
+                    let lastRef = data["Meta Data"]["3. Last Refreshed"];
+                    let timesArr = data["Time Series (1min)"];
+                    shares[i]["Last Refreshed"] = lastRef;
                     shares[i].loading = false;
-                    console.log(data["Time Series (1min)"][shares[i]["Last Refreshed"]])
-                    let obj = Object.keys(data["Time Series (1min)"])
-                    console.log(obj)
+                    shares[i].price = timesArr[lastRef]["4. close"]
+                    let obj = Object.keys(timesArr)
                     let lastRefreshIdx = 0;
                     let hourlyData = [];
                     while(lastRefreshIdx<360){
-                        hourlyData.push(data["Time Series (1min)"][obj[lastRefreshIdx]]);
+                        hourlyData.push(timesArr[obj[lastRefreshIdx]]);
                         lastRefreshIdx++;
                     }
 
