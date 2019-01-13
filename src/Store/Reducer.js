@@ -40,7 +40,6 @@ const Reducer = (state = initialState, action) => {
                 fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if(!data.Note){
                         shares[i].data = data;
                         //get last price of stock using the last refreshed attr
@@ -61,7 +60,15 @@ const Reducer = (state = initialState, action) => {
                         }
                         shares[i].data = hourlyData;
                         shares[i].times = times.reverse();
+                        
+                        //USING LOCAL STORAGE - IN ORDER NOT TO MAKE A LOT OF API CALLS
+                        localStorage.setItem(`data${i}`,JSON.stringify(shares[i].data))
+                        localStorage.setItem(`times${i}`,JSON.stringify(shares[i].times))
                         console.log(shares)
+                    }else{
+                        //Using local storge when not getting data from api
+                        shares[i].data = JSON.parse(localStorage.getItem(`data${i}`))
+                        shares[i].times =  JSON.parse(localStorage.getItem(`times${i}`))
                     }
                 })
             }
