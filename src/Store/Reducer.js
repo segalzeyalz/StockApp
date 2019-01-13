@@ -3,11 +3,11 @@ import * as actionTypes from './Actions';
 const initialState = {
     alphavantageKey:'8QEUI4X',
     shares: [
-     {symbol:'INX',name:"S&P 500", price:3, isLoadig:false},
-     {symbol:'DJI',name:"Dow 30", price:5, isLoadig:false},
-     {symbol:'NDX',name:"Nasdaq", price:50, isLoadig:false},
-     {symbol:'AMZN',name:"Amazon.com", price:-10, isLoadig:false},
-     {symbol:'GOOGL',name:"Alphabet Inc", price:-80, isLoadig:false}],
+     {symbol:'INX',name:"S&P 500", price:3},
+     {symbol:'DJI',name:"Dow 30", price:5},
+     {symbol:'NDX',name:"Nasdaq", price:50},
+     {symbol:'AMZN',name:"Amazon.com", price:-10},
+     {symbol:'GOOGL',name:"Alphabet Inc", price:-80}],
     shareNum:0,
     currencyRate:0,
     timesRate:{}
@@ -40,30 +40,30 @@ const Reducer = (state = initialState, action) => {
                 fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
                 .then(response => response.json())
                 .then(data => {
-                    shares[i].data = data;
-                    //get last price of stock using the last refreshed attr
-                    let lastRef = data["Meta Data"]["3. Last Refreshed"];
-                    let timesArr = data["Time Series (1min)"];
-                    //Set properties of shares
-                    shares[i]["Last Refreshed"] = lastRef;
-                    shares[i].loading = false;
-                    shares[i].price = timesArr[lastRef]["4. close"]
-                    let obj = Object.keys(timesArr)
-                    console.log(obj)
-                    let lastRefreshIdx = 0;
-                    let hourlyData = [];
-                    let times = [];
-                    while(lastRefreshIdx<360){
-                        hourlyData.push(parseFloat(timesArr[obj[lastRefreshIdx]]['4. close']));
-                        //Push only the hour part
-                        times.push(obj[lastRefreshIdx].substr(11))
-                        lastRefreshIdx++;
+                    console.log(data)
+                    if(!data.Note){
+                        shares[i].data = data;
+                        //get last price of stock using the last refreshed attr
+                        let lastRef = data["Meta Data"]? data["Meta Data"]["3. Last Refreshed"]:[];
+                        let timesArr = data["Time Series (1min)"];
+                        //Set properties of shares
+                        shares[i]["Last Refreshed"] = lastRef;
+                        shares[i].price = timesArr[lastRef]["4. close"]
+                        let obj = Object.keys(timesArr)
+                        let lastRefreshIdx = 0;
+                        let hourlyData = [];
+                        let times = [];
+                        while(lastRefreshIdx<360){
+                            hourlyData.push(parseFloat(timesArr[obj[lastRefreshIdx]]['4. close']));
+                            //Push only the hour part
+                            times.push(obj[lastRefreshIdx].substr(11))
+                            lastRefreshIdx++;
+                        }
+                        shares[i].data = hourlyData;
+                        shares[i].times = times.reverse();
+                        console.log(shares)
                     }
-
-                    shares[i].data = hourlyData;
-                    shares[i].times = times;
                 })
-                .catch(err=> shares[i].loading=true)
             }
             console.log(shares)
             return {

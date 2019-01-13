@@ -2,7 +2,6 @@ import React from 'react';
 import Title from './Title';
 import ShareVal from './ShareVal.jsx';
 import HighChart from './HighChart'
-import Spinner from '../Spinner';
 import Precentage from './Percentage.jsx';
 import CSS from './InfoComps.css';
 const InfoBox = (props) => {
@@ -13,7 +12,7 @@ const InfoBox = (props) => {
                 <ShareVal val={props.share.price}/>
                 <Precentage absVal={5} percent = {2}/>
               </div>
-              {props.share.isLoadig? <Spinner/>:<HighChart times={props.share.times} data={props.share.data} title={props.share.symbol}/>}
+              <HighChart times={props.share.times} data={props.share.data} title={props.share.symbol}/>
             </div>
         </div>
 };
