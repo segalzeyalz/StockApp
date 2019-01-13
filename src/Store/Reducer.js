@@ -44,6 +44,7 @@ const Reducer = (state = initialState, action) => {
                     //get last price of stock using the last refreshed attr
                     let lastRef = data["Meta Data"]["3. Last Refreshed"];
                     let timesArr = data["Time Series (1min)"];
+                    //Set properties of shares
                     shares[i]["Last Refreshed"] = lastRef;
                     shares[i].loading = false;
                     shares[i].price = timesArr[lastRef]["4. close"]
@@ -51,7 +52,7 @@ const Reducer = (state = initialState, action) => {
                     let lastRefreshIdx = 0;
                     let hourlyData = [];
                     while(lastRefreshIdx<360){
-                        hourlyData.push(timesArr[obj[lastRefreshIdx]]);
+                        hourlyData.push(parseFloat(timesArr[obj[lastRefreshIdx]]['4. close']));
                         lastRefreshIdx++;
                     }
 
@@ -59,8 +60,8 @@ const Reducer = (state = initialState, action) => {
 
                 })
                 .catch(err=> shares[i].loading=true)
-
             }
+            console.log(shares)
             return {
                 ...state,
                 shares: shares
