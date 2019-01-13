@@ -55,7 +55,8 @@ const Reducer = (state = initialState, action) => {
                     let times = [];
                     while(lastRefreshIdx<360){
                         hourlyData.push(parseFloat(timesArr[obj[lastRefreshIdx]]['4. close']));
-                        times.push(obj[lastRefreshIdx])
+                        //Push only the hour part
+                        times.push(obj[lastRefreshIdx].substr(11))
                         lastRefreshIdx++;
                     }
 

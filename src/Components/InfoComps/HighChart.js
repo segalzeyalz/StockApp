@@ -7,7 +7,6 @@ class HighChart extends Component {
     for(let j=0; j<360; j++){
       arr=[...arr, j]
     }
-    console.log(this.props.data)
     let config = {
       title:{align:"center",
         floating:false,
