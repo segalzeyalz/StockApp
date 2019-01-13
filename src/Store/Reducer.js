@@ -27,17 +27,11 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 shareNum:prevIdx
             }
-        case actionTypes.UPDATE_CURRENCY_RATE:
-            let newCurrency = action.newCurrency['Realtime Currency Exchange Rate']['5. Exchange Rate']
-            return {
-                ...state,
-                currencyRate:newCurrency
-            }
         case actionTypes.UPDATE_TIMES:
         //TODO: CHECK HOW TO MAKE IT SYNCHROUNSLY
             let {shares,shareNum} = state;
             for(let i=0; i<shares.length; i++){
-                fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
+                fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[i].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
                 .then(response => response.json())
                 .then(data => {
                     if(!data.Note){
@@ -77,10 +71,6 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 shares: shares
             }
-        case actionTypes.UPDATE_CURRENCY:
-            return {
-                ...state
-                        }
     }
     return state;
 };

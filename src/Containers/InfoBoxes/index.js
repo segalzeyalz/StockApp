@@ -28,7 +28,6 @@ const mapStateToProps = state => {
     return {
         onNext: () => dispatch({type:actionTypes.NEXT_STOCK}),
         onPrev: () => dispatch({type:actionTypes.PREV_STOCK}),
-        updateCurrencyRate: (newCurrency) => dispatch({type:actionTypes.UPDATE_CURRENCY_RATE,newCurrency:newCurrency}),
         updateTimes: (newTime) => dispatch({type:actionTypes.UPDATE_TIMES,newTime:newTime})
     }
 }
