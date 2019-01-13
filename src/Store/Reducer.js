@@ -1,12 +1,13 @@
 import * as actionTypes from './Actions';
 
 const initialState = {
+    alphavantageKey:'8QEUI4X',
     shares: [
-     {symbol:'INX',name:"S&P 500", price:3},
-     {symbol:'DJI',name:"Dow 30", price:5},
-     {symbol:'NDX',name:"Nasdaq", price:50},
-     {symbol:'AMZN',name:"Amazon.com", price:-10},
-     {symbol:'GOOGL',name:"Alphabet Inc", price:-80}],
+     {symbol:'INX',name:"S&P 500", price:3, isLoadig:true},
+     {symbol:'DJI',name:"Dow 30", price:5, isLoadig:true},
+     {symbol:'NDX',name:"Nasdaq", price:50, isLoadig:true},
+     {symbol:'AMZN',name:"Amazon.com", price:-10, isLoadig:true},
+     {symbol:'GOOGL',name:"Alphabet Inc", price:-80, isLoadig:true}],
     shareNum:0,
     currencyRate:0,
     timesRate:{}
@@ -36,8 +37,7 @@ const Reducer = (state = initialState, action) => {
         //TODO: CHECK HOW TO MAKE IT SYNCHROUNSLY
             let {shares,shareNum} = state;
             for(let i=0; i<shares.length; i++){
-                var data;
-                fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=8QEUI4X`)
+                fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
                 .then(response => response.json())
                 .then(data => {
                     let newdata = data
@@ -46,12 +46,11 @@ const Reducer = (state = initialState, action) => {
                     return newdata["Meta Data"]
                 })
                 .then(data=> {
-                    console.log(data)
-                })
-                    // price = newdata["Time Series (1min)"][lastRef]["volume"];
-                    // shares[i].price=price;
+                    shares[i]["Last Refreshed"] = data["3. Last Refreshed"]
+                    shares[i].loading = false;
+                }).catch(err=> shares[i].loading=true)
+
             }
-            console.log(shares)
             return {
                 ...state,
                 shares: shares
