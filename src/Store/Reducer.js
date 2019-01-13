@@ -3,11 +3,11 @@ import * as actionTypes from './Actions';
 const initialState = {
     alphavantageKey:'8QEUI4X',
     shares: [
-     {symbol:'INX',name:"S&P 500", price:3, isLoadig:true},
-     {symbol:'DJI',name:"Dow 30", price:5, isLoadig:true},
+     {symbol:'INX',name:"S&P 500", price:3, isLoadig:false},
+     {symbol:'DJI',name:"Dow 30", price:5, isLoadig:false},
      {symbol:'NDX',name:"Nasdaq", price:50, isLoadig:false},
      {symbol:'AMZN',name:"Amazon.com", price:-10, isLoadig:false},
-     {symbol:'GOOGL',name:"Alphabet Inc", price:-80, isLoadig:true}],
+     {symbol:'GOOGL',name:"Alphabet Inc", price:-80, isLoadig:false}],
     shareNum:0,
     currencyRate:0,
     timesRate:{}
@@ -49,15 +49,18 @@ const Reducer = (state = initialState, action) => {
                     shares[i].loading = false;
                     shares[i].price = timesArr[lastRef]["4. close"]
                     let obj = Object.keys(timesArr)
+                    console.log(obj)
                     let lastRefreshIdx = 0;
                     let hourlyData = [];
+                    let times = [];
                     while(lastRefreshIdx<360){
                         hourlyData.push(parseFloat(timesArr[obj[lastRefreshIdx]]['4. close']));
+                        times.push(obj[lastRefreshIdx])
                         lastRefreshIdx++;
                     }
 
                     shares[i].data = hourlyData;
-
+                    shares[i].times = times;
                 })
                 .catch(err=> shares[i].loading=true)
             }

@@ -14,7 +14,7 @@ class HighChart extends Component {
         style:{ "color": "#333333", "fontSize": "18px" },
         text:this.props.title},
         xAxis: { title:{text:"Time"},
-          categories: arr
+          categories: Array.isArray(this.props.times)?this.props.times:arr
         },
         series: [{
           data: Array.isArray(this.props.data)?this.props.data:arr

@@ -13,7 +13,7 @@ const InfoBox = (props) => {
                 <ShareVal val={props.share.price}/>
                 <Precentage absVal={5} percent = {2}/>
               </div>
-              {props.share.isLoadig? <Spinner/>:<HighChart data={props.share.data} title={props.share.symbol}/>}
+              {props.share.isLoadig? <Spinner/>:<HighChart times={props.share.times} data={props.share.data} title={props.share.symbol}/>}
             </div>
         </div>
 };
