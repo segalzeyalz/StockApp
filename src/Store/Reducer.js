@@ -5,8 +5,8 @@ const initialState = {
     shares: [
      {symbol:'INX',name:"S&P 500", price:3, isLoadig:true},
      {symbol:'DJI',name:"Dow 30", price:5, isLoadig:true},
-     {symbol:'NDX',name:"Nasdaq", price:50, isLoadig:true},
-     {symbol:'AMZN',name:"Amazon.com", price:-10, isLoadig:true},
+     {symbol:'NDX',name:"Nasdaq", price:50, isLoadig:false},
+     {symbol:'AMZN',name:"Amazon.com", price:-10, isLoadig:false},
      {symbol:'GOOGL',name:"Alphabet Inc", price:-80, isLoadig:true}],
     shareNum:0,
     currencyRate:0,
@@ -36,19 +36,30 @@ const Reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_TIMES:
         //TODO: CHECK HOW TO MAKE IT SYNCHROUNSLY
             let {shares,shareNum} = state;
-            for(let i=0; i<shares.length; i++){
-                // fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
-                // .then(response => response.json())
-                // .then(data => {
-                //     let newdata = data
-                //     shares[i].data = newdata;
-                //     //get last price of stock using the last refreshed attr
-                //     return newdata["Meta Data"]
-                // })
-                // .then(data=> {
-                //     shares[i]["Last Refreshed"] = data["3. Last Refreshed"]
-                //     shares[i].loading = false;
-                // }).catch(err=> shares[i].loading=true)
+            for(let i=0; i<1; i++){
+                fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${shares[shareNum].symbol}&interval=1min&outputsize=full&apikey=${state.alphavantageKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    shares[i].data = data;
+                    //get last price of stock using the last refreshed attr
+                    shares[i]["Last Refreshed"] = data["Meta Data"]["3. Last Refreshed"]
+                    console.log(data["Meta Data"]["3. Last Refreshed"])
+                    console.log(data["Time Series (1min)"])
+                    shares[i].loading = false;
+                    console.log(data["Time Series (1min)"][shares[i]["Last Refreshed"]])
+                    let obj = Object.keys(data["Time Series (1min)"])
+                    console.log(obj)
+                    let lastRefreshIdx = 0;
+                    let hourlyData = [];
+                    while(lastRefreshIdx<360){
+                        hourlyData.push(data["Time Series (1min)"][obj[lastRefreshIdx]]);
+                        lastRefreshIdx++;
+                    }
+
+                    shares[i].data = hourlyData;
+
+                })
+                .catch(err=> shares[i].loading=true)
 
             }
             return {

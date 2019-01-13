@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as actionTypes from './../../Store/Actions';
 import InfoBox from './../../Components/InfoComps/InfoBox.jsx';
-import Spinner from './../../Components/Spinner'
 import { connect } from 'react-redux';
 import CSS from './InfoBoxes.css';
 
@@ -15,7 +14,6 @@ class InfoBoxes extends Component {
                     <div onClick={()=>this.props.onNext()} className={[CSS.Arrow,"fas fa-arrow-left"].join(' ')}></div>
                     <InfoBox share = {shares[shareIdx]} /> 
                     <div onClick={()=>this.props.onPrev()} className={[CSS.Arrow,CSS.Arrow,"fas fa-arrow-right"].join(' ')}></div>
-                    <Spinner/>
                 </div>)
     }
 }
